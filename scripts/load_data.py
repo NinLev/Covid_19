@@ -20,10 +20,10 @@ def read_ct_img_bydir(target_dir):
 def get_data():
     '''Loads raw data from image names of each class folder and assigns a label to it.'''
     
-    target_dir1='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/niCT'
-    target_dir2='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/pCT'
-    target_dir3='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/nCT'
-    
+    target_dir1='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/niCT/'
+    target_dir2='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/pCT/'
+    target_dir3='/home/adduser/code/NinLev/Covid_19/raw_data/labeled_CT_data/nCT/'
+        
     target_list1=[target_dir1+file for file in os.listdir(target_dir1)]
     target_list2=[target_dir2+file for file in os.listdir(target_dir2)]
     target_list3=[target_dir3+file for file in os.listdir(target_dir3)]
@@ -40,3 +40,5 @@ def get_data():
     X=np.array([read_ct_img_bydir(file) for file in target_list])[:,:,:,np.newaxis]
 
     return X, y_list
+
+X,y= get_data()
