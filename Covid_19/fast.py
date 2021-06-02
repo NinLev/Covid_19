@@ -3,7 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import storage
 import io, os
 import tempfile
-
+from os.path import join, dirname
+from dotenv import load_dotenv
+# ...
+env_path = join(dirname(dirname(__file__)),'.env') # ../.env
+load_dotenv(dotenv_path=env_path)
+C19_API_KEY = os.getenv('C19_API_KEY')
 
 EXPERIMENT_NAME = 'COVID_CT_Scan_Predict'
 BUCKET_NAME = 'bucket-covid-19' 
@@ -23,22 +28,13 @@ def get_files_from_storage(file_names):
     images = []
     if file_names:
         for file_name in file_names:
-            client = storage.Client('[batch-606-covid-19]')
-            bucket = client.get_bucket(BUCKET_NAME)
+            storage_client = storage.Client.from_service_account_json(C19_API_KEY)
+            bucket = storage_client.get_bucket(BUCKET_NAME)
             blob = bucket.blob(file_name)
             images.append(blob.download_to_filename(file_name))
         return images 
     else:
         return None
-    
-def upload_files_to_storage(files):
-    if files:
-        for file in files:
-            client = storage.Client('[batch-606-covid-19]')
-            bucket = client.get_bucket(BUCKET_NAME)
-            blob = bucket.blob(file_name)
-            with tempfile.NamedTemporaryFile() as temp:
-                blob.download_to_filename(temp.name)
 
 
 @app.get("/")
