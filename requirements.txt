@@ -5,19 +5,19 @@ twine
 wheel>=0.29
 
 # data science
-numpy
-pandas
+#numpy
+#pandas
 #scikit-learn
 matplotlib
 opencv-python
 #tensorflow
 
 # tests/linter
-black
-coverage
-flake8
-pytest
-yapf
+#black
+#coverage
+#flake8
+#pytest
+#yapf
 
 # API
 #gcsfs
