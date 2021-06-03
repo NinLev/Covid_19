@@ -1,1 +1,1 @@
-echo ${GOOGLE_CREDENTIALS} > batch-606-covid-19-5d766c13ace0.json
+echo ${GOOGLE_CREDENTIALS} > /app/batch-606-covid-19-5d766c13ace0.json
