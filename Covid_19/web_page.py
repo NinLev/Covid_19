@@ -5,7 +5,15 @@ import random
 from PIL import Image
 #from google.cloud import storage
 from cloud_storage import upload_to_bucket
+#from Covid_19.cloud_storage import save_file_to_gcp
 import requests
+
+
+
+
+
+
+
 '''
 # Project Covid19 front
 '''
@@ -22,7 +30,6 @@ next steps:
 
 uploaded_files = st.file_uploader("Uploade your CT-scans",accept_multiple_files = True)
 
-#upload_to_bucket("trail4.jpg",uploaded_files)
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
 #cv2.imwrite('scan1.png', uploaded_file)

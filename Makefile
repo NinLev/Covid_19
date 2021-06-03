@@ -60,15 +60,24 @@ pypi:
 ##---------------------------------------------------------
 
 # project id - replace with your GCP project id
-#Eitan
+
+#Eitans project
 PROJECT_ID="batch-606-covid-19" 
-#PROJECT_ID="batch-606-covid-19-315710" Ali 
-#PROJECT_ID="covid19-315509" Nina
+
+#Alis project
+#PROJECT_ID="batch-606-covid-19-315710"
+
+#Ninas project
+#PROJECT_ID="covid19-315509"
 
 # bucket name - replace with your GCP bucket name
-#Eitan
+#Eitan Bucket
 BUCKET_NAME=bucket-covid-19 
+
+#Alis Bucket
 #BUCKET_NAME=bucket-covid-19-ali
+
+#Ninas Bucket
 #BUCKET_NAME=bucket-covid-19-predictions
 
 # choose your region from https://cloud.google.com/storage/docs/locations#available_locations
