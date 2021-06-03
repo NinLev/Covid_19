@@ -1,9 +1,9 @@
-from numpy.lib.type_check import imag
+#from numpy.lib.type_check import imag
 import streamlit as st
 import matplotlib.pyplot as plt
 import random
 from PIL import Image
-from google.cloud import storage
+#from google.cloud import storage
 from cloud_storage import upload_to_bucket
 import requests
 '''
