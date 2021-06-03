@@ -1,17 +1,19 @@
-from numpy.lib.type_check import imag
+#from numpy.lib.type_check import imag
 import streamlit as st
-import requests
 import matplotlib.pyplot as plt
-import cv2
-import os
-import sys
-import time
-import pandas
 import random
 from PIL import Image
-from google.cloud import storage
+#from google.cloud import storage
 from cloud_storage import upload_to_bucket
+#from Covid_19.cloud_storage import save_file_to_gcp
 import requests
+
+
+
+
+
+
+
 '''
 # Project Covid19 front
 '''
@@ -28,7 +30,6 @@ next steps:
 
 uploaded_files = st.file_uploader("Uploade your CT-scans",accept_multiple_files = True)
 
-#upload_to_bucket("trail4.jpg",uploaded_files)
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
 #cv2.imwrite('scan1.png', uploaded_file)
@@ -49,7 +50,7 @@ for uploaded_file in uploaded_files:
                                                                                                                                 #img = load_image(uploaded_file)
                                                                                                                                 #st.image(img)
     counter +=1
-    image_name = f"image_number({counter})"
+    image_name = f"image_number({counter}).jpg"
     list_of_names.append(image_name)
     upload_to_bucket(image_name,uploaded_file)
     st.image(uploaded_file)

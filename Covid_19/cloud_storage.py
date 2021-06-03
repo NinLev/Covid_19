@@ -49,7 +49,14 @@ def upload_to_bucket(blob_name, file):
 # step2: trying on multiple images with for loop
 
 
-
+def save_file_to_gcp(file,filename):
+    BUCKET_NAME = "bucket-covid-19"
+    #storage_location = "models/random_forest_model.joblib"
+    #local_model_filename = "model.joblib"
+    client = storage.Client('[batch-606-covid-19]')
+    bucket = client.bucket(BUCKET_NAME)
+    blob = bucket.blob(file)
+    blob.upload_from_filename(filename)
 
 
 
