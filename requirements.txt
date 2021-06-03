@@ -9,7 +9,7 @@ wheel>=0.29
 #pandas
 #scikit-learn
 matplotlib
-opencv-python
+#opencv-python
 #tensorflow
 
 # tests/linter
