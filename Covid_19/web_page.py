@@ -5,7 +5,7 @@ import random
 from PIL import Image
 #from google.cloud import storage
 from cloud_storage import upload_to_bucket
-#from Covid_19.cloud_storage import save_file_to_gcp
+from Covid_19.cloud_storage import save_file_to_gcp
 import requests
 
 
