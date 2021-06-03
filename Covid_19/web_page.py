@@ -43,7 +43,7 @@ for uploaded_file in uploaded_files:
                                                                                                                                 #img = load_image(uploaded_file)
                                                                                                                                 #st.image(img)
     counter +=1
-    image_name = f"image_number({counter})"
+    image_name = f"image_number({counter}).jpg"
     list_of_names.append(image_name)
     upload_to_bucket(image_name,uploaded_file)
     st.image(uploaded_file)
