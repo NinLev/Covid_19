@@ -20,7 +20,7 @@ def upload_to_bucket(blob_name, file):
     """ Upload data to a bucket"""
     # Explicitly use service account credentials by specifying the private key
     # file.
-    storage_client = storage.Client.from_service_account_json(C19_API_KEY)
+    storage_client = storage.Client.from_service_account_json('../batch-606-covid-19-5d766c13ace0.json')
     #print(buckets = list(storage_client.list_buckets())
     bucket_name="bucket-covid-19"
     bucket = storage_client.get_bucket(bucket_name)
