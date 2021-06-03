@@ -1,12 +1,6 @@
 from numpy.lib.type_check import imag
 import streamlit as st
-import requests
 import matplotlib.pyplot as plt
-import cv2
-import os
-import sys
-import time
-import pandas
 import random
 from PIL import Image
 from google.cloud import storage
