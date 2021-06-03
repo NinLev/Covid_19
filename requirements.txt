@@ -34,3 +34,4 @@ memoized-property
 termcolor
 streamlit
 python-dotenv
+uvicorn

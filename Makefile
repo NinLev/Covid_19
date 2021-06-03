@@ -98,4 +98,4 @@ upload_data:
 ## 						streamlit 
 ##==========================================================
 streamlit:
-	-@streamlit run web_page.py
+	@streamlit run Covid_19/web_page.py
