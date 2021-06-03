@@ -60,10 +60,14 @@ pypi:
 ##---------------------------------------------------------
 
 # project id - replace with your GCP project id
-PROJECT_ID="batch-606-covid-19"
+#PROJECT_ID="batch-606-covid-19" Eitan
+#PROJECT_ID="batch-606-covid-19-315710" Ali 
+PROJECT_ID="covid19-315509"
 
 # bucket name - replace with your GCP bucket name
-BUCKET_NAME=bucket-covid-19
+#BUCKET_NAME=bucket-covid-19
+#BUCKET_NAME=bucket-covid-19-ali
+BUCKET_NAME=bucket-covid-19-predictions
 
 # choose your region from https://cloud.google.com/storage/docs/locations#available_locations
 REGION=europe-west1
@@ -82,7 +86,7 @@ run_api:
 
 # path to the file to upload to GCP (the path to the file should be absolute or should match the directory where the make command is ran)
 # replace with your local path to the `dataset.csv,jpeg` and make sure to put the path between quotes
-LOCAL_PATH="XXX"
+LOCAL_PATH="nCT59.jpg"
 
 # bucket directory in which to store the uploaded file (`data` is an arbitrary name that we choose to use)
 BUCKET_FOLDER=data
