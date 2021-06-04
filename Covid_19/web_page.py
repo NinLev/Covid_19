@@ -27,6 +27,9 @@ the structure of model:
 - GCP: Docker image, API
 - Interface and online services
 ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
 st.markdown(''' This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient
 ''')
 
@@ -47,6 +50,9 @@ image4 ="streamlit_images/wide_pic.jpg"
 # # thirdy = Image.open(image3)
 # # col3.header("Graphs")
 # # col3.image(thirdy, use_column_width=True)
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
 
 if st.button('SHOW ME YOUR RESEARCH INFO'):
     # print is visible in server output, not in the page
