@@ -5,12 +5,12 @@ setuptools>=26
 #wheel>=0.29
 
 # data science
-numpy
-pandas
-scikit-learn
+#numpy
+#pandas
+#scikit-learn
 matplotlib
-opencv-python
-tensorflow
+#opencv-python
+#tensorflow
 
 # tests/linter
 black
@@ -24,14 +24,14 @@ black
 google-cloud-storage
 #mlflow
 #s3fs
-fastapi
+#fastapi
 google.cloud
 
 # utilities
 six>=1.14
 #joblib
 #memoized-property
-termcolor
+#termcolor
 streamlit
 python-dotenv
-uvicorn
+#uvicorn
