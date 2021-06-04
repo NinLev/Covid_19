@@ -80,7 +80,7 @@ set_project:
 create_bucket:
 	@gsutil mb -l ${REGION} -p ${PROJECT_ID} gs://${BUCKET_NAME}
 run_api:
-	uvicorn api.fast:app --
+	uvicorn api.fast:app --reload
 
 ##==================================================
 ##				Uploading dataset to the cloud
