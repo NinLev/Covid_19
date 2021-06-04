@@ -2,18 +2,18 @@
 pip>=9
 setuptools>=26
 #twine
-wheel>=0.29
+#wheel>=0.29
 
 # data science
-#numpy
-#pandas
-#scikit-learn
+numpy
+pandas
+scikit-learn
 matplotlib
-#opencv-python
-#tensorflow
+opencv-python
+tensorflow
 
 # tests/linter
-#black
+black
 #coverage
 #flake8
 #pytest
@@ -24,14 +24,14 @@ matplotlib
 google-cloud-storage
 #mlflow
 #s3fs
-#fastapi
+fastapi
 google.cloud
 
 # utilities
-#six>=1.14
+six>=1.14
 #joblib
 #memoized-property
-#termcolor
+termcolor
 streamlit
 python-dotenv
-#uvicorn
+uvicorn
