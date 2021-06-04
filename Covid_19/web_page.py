@@ -21,18 +21,19 @@ import requests
 
 st.markdown('''
 '' Here is our first prototype interface for our dear Project Covid_19 Thanks:*Nina,Eitan,Cyril,Chris,Ali* ''
-next steps:
-- Model 
-- API
-- Docker image
-- GCP
+the structure of model:
+- Dataset (cleaning and preprocessing)
+- Model building
+- GCP: Docker image, API
+- Interface and online services
 ''')
-
+st.markdown(''' This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient
+''')
 
 # col1, col2 = st.beta_columns(2)
 # image1 ="streamlit_images/firstpic.jpg"
 # image2 ="streamlit_images/secondpic.png"
-# image3 ="streamlit_images/thirdpic.jpg"
+image3 ="streamlit_images/thirdpic.png"
 image4 ="streamlit_images/wide_pic.jpg"
 
 # original = Image.open(image1)
@@ -47,13 +48,33 @@ image4 ="streamlit_images/wide_pic.jpg"
 # # col3.header("Graphs")
 # # col3.image(thirdy, use_column_width=True)
 
-image = Image.open(image4)
-st.image(image, caption='CNN', use_column_width=True)
+if st.button('SHOW ME YOUR RESEARCH INFO'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('I was clicked 🎉')
+    image = Image.open(image4)
+    st.image(image, caption='CNN', use_column_width=True)
+else:
+    st.write('feel free to look 🎉')
+    
+    
+if st.button('Results of our Model training'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('Pretty high')
+    image = Image.open(image3)
+    st.image(image, caption='CNN', use_column_width=True)
+else:
+    st.write("You wo'nt bt dissappointed")
+    
+
+# image = Image.open(image4)
+# st.image(image, caption='CNN', use_column_width=True)
 #st.markdown('<img src="./firstpic.jpg"/>', unsafe_allow_html=True)
 
 
 
-uploaded_files = st.file_uploader("Uploade your CT-scans",accept_multiple_files = True)
+uploaded_files = st.file_uploader("Please Uploade your CT-scans for prediction",accept_multiple_files = True)
 
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
