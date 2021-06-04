@@ -5,6 +5,11 @@ import io, os
 import tempfile
 from os.path import join, dirname
 from dotenv import load_dotenv
+import tensorflow as tf
+import numpy as np
+import cv2
+
+
 # ...
 env_path = join(dirname(dirname(__file__)),'.env') # ../.env
 load_dotenv(dotenv_path=env_path)
@@ -31,21 +36,50 @@ def get_files_from_storage(file_names):
             storage_client = storage.Client.from_service_account_json(C19_API_KEY)
             bucket = storage_client.get_bucket(BUCKET_NAME)
             blob = bucket.blob(file_name)
-            images.append(blob.download_to_filename(file_name))
+            images.append(blob)
         return images 
     else:
         return None
+# preprocessing an image - grayscale and size
+def preproc_before_pred(img):
+    img=cv2.imread(img, cv2.IMREAD_GRAYSCALE)
+    #img=cv2.cvtColor(img, cv2.IMREAD_GRAYSCALE)
+    img=cv2.resize(img,(200,200))
+    return img
 
+def decode_prediction(prediction):
+    res = ''
+    if prediction[0][0]==1:
+        return 'Non-Informative'
+    if prediction[0][1]==1:
+        return 'Positive'
+    if prediction[0][2]==1:
+        return 'Negative'
+        
 
 @app.get("/")
 def index():
     return {"greeting": "Hello"}
 
+
 @app.get("/predict")
 def predict(file_names):
-    file_names = file_names.rsplit(',')
-    CT_images = get_files_from_storage(file_names)
-    diagnosis = len(CT_images) 
-    return {"diagnosis":diagnosis}
+    loaded_model = tf.keras.models.load_model('models/model_labeled_ct_15epochs') # load model
+    file_names = file_names.rsplit(',')  # split file names string to list of file names 
+    CT_images = get_files_from_storage(file_names)  # get images from cloud storage
+    CT_images_preproc = []
+    for blob in CT_images:
+        blob.download_to_filename('temp1.jpeg')
+        CT_images_preproc.append(np.array([preproc_before_pred('temp1.jpeg')])[:,:,:,np.newaxis])
+
+    results = {}
+    print(CT_images_preproc)
+    # loop that goes over the client files, predicts and round result to determine class
+    for image, file_name in zip(CT_images_preproc, file_names):
+        diagnosis = loaded_model.predict(image) 
+        rounded_diagnosis = np.rint(diagnosis)
+        decode_diagnosis = decode_prediction(rounded_diagnosis)         
+        results[f'{file_name}'] =  decode_diagnosis
+    return {'result':decode_diagnosis} #returns a dictionary with file names as keys and one hot coded list as class
 
 
