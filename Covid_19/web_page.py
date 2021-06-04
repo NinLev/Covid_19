@@ -28,14 +28,39 @@ next steps:
 - GCP
 ''')
 
+
+# col1, col2 = st.beta_columns(2)
+# image1 ="streamlit_images/firstpic.jpg"
+# image2 ="streamlit_images/secondpic.png"
+# image3 ="streamlit_images/thirdpic.jpg"
+image4 ="streamlit_images/wide_pic.jpg"
+
+# original = Image.open(image1)
+# col1.header("Original")
+# col1.image(original, use_column_width=True)
+
+# grayscale = Image.open(image2)
+# col2.header("Grayscale")
+# col2.image(grayscale, use_column_width=True)
+
+# # thirdy = Image.open(image3)
+# # col3.header("Graphs")
+# # col3.image(thirdy, use_column_width=True)
+
+image = Image.open(image4)
+st.image(image, caption='CNN', use_column_width=True)
+#st.markdown('<img src="./firstpic.jpg"/>', unsafe_allow_html=True)
+
+
+
 uploaded_files = st.file_uploader("Uploade your CT-scans",accept_multiple_files = True)
 
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
 #cv2.imwrite('scan1.png', uploaded_file)
-# def load_image(image_file):
-#     img= Image.open(image_file)
-#     return img
+def load_image(image_file):
+    img= Image.open(image_file)
+    return img
 ## =================================================================================================
 #                       step2: trying on multiple images with for loop
 ## ==================================================================================================
