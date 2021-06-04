@@ -12,15 +12,26 @@ import requests
 
 
 
+#st.set_page_config(layout="wide")
 
 
 '''
-# Project Covid19 front
+# Project: Covid19 prediction - front
 '''
+
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font">Hello User !!</p>', unsafe_allow_html=True)
 
 
 st.markdown('''
-'' Here is our first prototype interface for our dear Project Covid_19 Thanks:*Nina,Eitan,Cyril,Chris,Ali* ''
+ Here is our first prototype interface for our dear Project Covid_19 Thanks:*Nina,  Eitan,  Cyril, Ali*
+
 the structure of model:
 - Dataset (cleaning and preprocessing)
 - Model building
@@ -30,8 +41,37 @@ the structure of model:
 st.markdown(''' ''')
 st.markdown(''' ''')
 st.markdown(''' ''')
-st.markdown(''' This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient
-''')
+
+st.markdown("""
+<style>
+.big-font {
+    font-size:50px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font"> -What we offer: </p>', unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font">This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient!!</p>', unsafe_allow_html=True)
+
+
+
+
+
+#st.markdown(''' This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient''')
 
 # col1, col2 = st.beta_columns(2)
 # image1 ="streamlit_images/firstpic.jpg"
@@ -117,6 +157,18 @@ for uploaded_file in uploaded_files:
 #=================================================================================================
 st.write("File Names:",list_of_names)
 
+
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+
+if st.button('PREDICT'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('AMAZING! YOU ARE CORONA FREE 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉')
+else:
+    st.write("You wo'nt be dissappointed")
+    
 # step4: importing the function to streamlit page
 # CHECK 
 
