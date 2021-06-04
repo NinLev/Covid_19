@@ -99,6 +99,7 @@ if st.button('SHOW ME YOUR RESEARCH INFO'):
     print('button clicked!')
     st.write('I was clicked 🎉')
     image = Image.open(image4)
+    grayscale = image.convert('LA')
     st.image(image, caption='CNN', use_column_width=True)
 else:
     st.write('feel free to look 🎉')
@@ -118,16 +119,14 @@ else:
 # st.image(image, caption='CNN', use_column_width=True)
 #st.markdown('<img src="./firstpic.jpg"/>', unsafe_allow_html=True)
 
-
-
 uploaded_files = st.file_uploader("Please Uploade your CT-scans for prediction",accept_multiple_files = True)
 
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
 #cv2.imwrite('scan1.png', uploaded_file)
-def load_image(image_file):
-    img= Image.open(image_file)
-    return img
+# def load_image(image_file):
+#     img= Image.open(image_file)
+#     return img
 ## =================================================================================================
 #                       step2: trying on multiple images with for loop
 ## ==================================================================================================
@@ -146,7 +145,7 @@ for uploaded_file in uploaded_files:
     list_of_names.append(image_name)
     upload_to_bucket(image_name,uploaded_file)
     st.image(uploaded_file)
-    st.success("file is amazing")
+    st.success("file is uploaded and processing")
     
                                                                                                                                 #    with open(os.path.join("data",uploaded_file.name), "wb") as f:
                                                                                                                                 #        f.write(uploaded_file.getbuffer())
@@ -167,7 +166,7 @@ if st.button('PREDICT'):
     print('button clicked!')
     st.write('AMAZING! YOU ARE CORONA FREE 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉')
 else:
-    st.write("You wo'nt be dissappointed")
+    st.write(" You might be disappointed, Pray to god you are negative ")
     
 # step4: importing the function to streamlit page
 # CHECK 
@@ -182,10 +181,20 @@ else:
 
 
 
+def call_prediction(image_name):
+    url = 'https://yesssss-stresssss-3sowdrohva-ew.a.run.app/predict'
+    params = {'file_names':image_name}
+    result = requests.get(url = url, params = params).json()
+    return result['result']
 
 
 
 
+
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.write(f"Here are your results {call_prediction(image_name)}")
 
 
 
