@@ -19,7 +19,7 @@ C19_API_KEY = os.getenv('C19_API_KEY')
 def upload_to_bucket(blob_name, file):
     """ Upload data to a bucket"""
     # Explicitly use service account credentials by specifying the private key
-    # file.
+    
     storage_client = storage.Client.from_service_account_json(C19_API_KEY)
     #print(buckets = list(storage_client.list_buckets())
     bucket_name="bucket-covid-19"
@@ -49,7 +49,14 @@ def upload_to_bucket(blob_name, file):
 # step2: trying on multiple images with for loop
 
 
-
+def save_file_to_gcp(filename,file):
+    BUCKET_NAME = "bucket-covid-19"
+    #storage_location = "models/random_forest_model.joblib"
+    #local_model_filename = "model.joblib"
+    client = storage.Client('batch-606-covid-19')
+    bucket = client.bucket(BUCKET_NAME)
+    blob = bucket.blob(filename)
+    blob.upload_from_filename(file)
 
 
 

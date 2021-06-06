@@ -1,34 +1,126 @@
-from numpy.lib.type_check import imag
+#from numpy.lib.type_check import imag
 import streamlit as st
-import requests
 import matplotlib.pyplot as plt
-import cv2
-import os
-import sys
-import time
-import pandas
 import random
 from PIL import Image
-from google.cloud import storage
+#from google.cloud import storage
 from cloud_storage import upload_to_bucket
+from Covid_19.cloud_storage import save_file_to_gcp
 import requests
+
+
+
+
+
+#st.set_page_config(layout="wide")
+
+
 '''
-# Project Covid19 front
+# Project: Covid19 prediction - front
 '''
+
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font">Hello User !!</p>', unsafe_allow_html=True)
 
 
 st.markdown('''
-'' Here is our first prototype interface for our dear Project Covid_19 Thanks:*Nina,Eitan,Cyril,Chris,Ali* ''
-next steps:
-- Model 
-- API
-- Docker image
-- GCP
+ Here is our first prototype interface for our dear Project Covid_19 Thanks:*Nina,  Eitan,  Cyril, Ali*
+
+the structure of model:
+- Dataset (cleaning and preprocessing)
+- Model building
+- GCP: Docker image, API
+- Interface and online services
 ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
 
-uploaded_files = st.file_uploader("Uploade your CT-scans",accept_multiple_files = True)
+st.markdown("""
+<style>
+.big-font {
+    font-size:50px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font"> -What we offer: </p>', unsafe_allow_html=True)
 
-#upload_to_bucket("trail4.jpg",uploaded_files)
+
+
+
+
+
+
+
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font">This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient!!</p>', unsafe_allow_html=True)
+
+
+
+
+
+#st.markdown(''' This Website will help clinicians to upload CT lung scans & key clinical features to get a fast confirmation or rejection of a Covid-19 pneumonia diagnosis as well as a mortality likelihood per patient''')
+
+# col1, col2 = st.beta_columns(2)
+# image1 ="streamlit_images/firstpic.jpg"
+# image2 ="streamlit_images/secondpic.png"
+image3 ="streamlit_images/thirdpic.png"
+image4 ="streamlit_images/wide_pic.jpg"
+
+# original = Image.open(image1)
+# col1.header("Original")
+# col1.image(original, use_column_width=True)
+
+# grayscale = Image.open(image2)
+# col2.header("Grayscale")
+# col2.image(grayscale, use_column_width=True)
+
+# # thirdy = Image.open(image3)
+# # col3.header("Graphs")
+# # col3.image(thirdy, use_column_width=True)
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+
+if st.button('SHOW ME YOUR RESEARCH INFO'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('I was clicked 🎉')
+    image = Image.open(image4)
+    grayscale = image.convert('LA')
+    st.image(image, caption='CNN', use_column_width=True)
+else:
+    st.write('feel free to look 🎉')
+    
+    
+if st.button('Results of our Model training'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('Pretty high')
+    image = Image.open(image3)
+    st.image(image, caption='CNN', use_column_width=True)
+else:
+    st.write("You wo'nt bt dissappointed")
+    
+
+# image = Image.open(image4)
+# st.image(image, caption='CNN', use_column_width=True)
+#st.markdown('<img src="./firstpic.jpg"/>', unsafe_allow_html=True)
+
+uploaded_files = st.file_uploader("Please Uploade your CT-scans for prediction",accept_multiple_files = True)
+
 #st.image(uploaded_files, caption="**YOU DONT HAVE CORONA**")
 
 #cv2.imwrite('scan1.png', uploaded_file)
@@ -49,11 +141,11 @@ for uploaded_file in uploaded_files:
                                                                                                                                 #img = load_image(uploaded_file)
                                                                                                                                 #st.image(img)
     counter +=1
-    image_name = f"image_number({counter})"
+    image_name = f"image_number({counter}).jpg"
     list_of_names.append(image_name)
     upload_to_bucket(image_name,uploaded_file)
     st.image(uploaded_file)
-    st.success("file is amazing")
+    st.success("file is uploaded and processing")
     
                                                                                                                                 #    with open(os.path.join("data",uploaded_file.name), "wb") as f:
                                                                                                                                 #        f.write(uploaded_file.getbuffer())
@@ -64,6 +156,18 @@ for uploaded_file in uploaded_files:
 #=================================================================================================
 st.write("File Names:",list_of_names)
 
+
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+
+if st.button('PREDICT'):
+    # print is visible in server output, not in the page
+    print('button clicked!')
+    st.write('AMAZING! YOU ARE CORONA FREE 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉')
+else:
+    st.write(" You might be disappointed, Pray to god you are negative ")
+    
 # step4: importing the function to streamlit page
 # CHECK 
 
@@ -77,10 +181,20 @@ st.write("File Names:",list_of_names)
 
 
 
+def call_prediction(image_name):
+    url = 'https://yesssss-stresssss-3sowdrohva-ew.a.run.app/predict'
+    params = {'file_names':image_name}
+    result = requests.get(url = url, params = params).json()
+    return result['result']
 
 
 
 
+
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.markdown(''' ''')
+st.write(f"Here are your results {call_prediction(image_name)}")
 
 
 
