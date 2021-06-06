@@ -37,31 +37,31 @@ MODEL_VERSION = 'v1'
 ### GCP AI Platform - - - - - - - - - - - - - - - - - - - -
 # not required here
 
-def get_data():
+def get_data(label):
     """method to get the training data (or a portion of it) from google cloud bucket"""
     #bucket = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json').get_bucket(BUCKET_NAME)
     bucket = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json').get_bucket(BUCKET_NAME)
     
-    def list_blobs_with_prefix(bucket_name, prefix, delimiter=None):
+    def list_blobs_with_prefix(BUCKET_NAME, prefix, delimiter=None):
 
         #storage_client = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json')
         storage_client = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json')
 
-        blobs = storage_client.list_blobs(bucket_name, prefix=prefix, delimiter=None)
+        blobs = storage_client.list_blobs(BUCKET_NAME, prefix=prefix, delimiter=None)
 
-          print("Blobs:")
+        print("Blobs:")
 
         images = []
         for blob in blobs:
             print(blob.name)
             if blob.name.endswith(".jpg"):
-            image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
-            print(image.shape)         
-            images.append(image)  
+                image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
+                print(image.shape)         
+                images.append(image)  
 
         return images
 
-    imgs = list_blobs_with_prefix(bucket_name, f'data/labeled_CT_data/{label}', '/')
+    imgs = list_blobs_with_prefix(BUCKET_NAME, f'data/labeled_CT_data/{label}', '/')
 
           
     return imgs
@@ -151,11 +151,11 @@ def save_model(reg):
 
 if __name__ == '__main__':
     # get training data from GCP bucket
-    X_nCT = get_data(label='nCT')
+    X_nCT = get_data('nCT')
     X_nCT = np.expand_dims(X_nCT, axis=-1)
-    X_pCT = get_data(label='pCT')
+    X_pCT = get_data('pCT')
     X_pCT = np.expand_dims(X_pCT, axis=-1)
-    X_NiCT = get_data(label='NiCT')
+    X_NiCT = get_data('NiCT')
     X_NiCT = np.expand_dims(X_NiCT, axis=-1)
 
     # Compute labels
