@@ -64,6 +64,12 @@ pypi:
 #Eitans project
 PROJECT_ID="batch-606-covid-19" 
 
+<<<<<<< HEAD
+#Chris project
+#PROJECT_ID="wagon-bootcamp-312423"
+
+=======
+>>>>>>> master
 #Alis project
 #PROJECT_ID="batch-606-covid-19-315710"
 
@@ -71,8 +77,12 @@ PROJECT_ID="batch-606-covid-19"
 #PROJECT_ID="covid19-315509"
 
 # bucket name - replace with your GCP bucket name
+
 #Eitan Bucket
 BUCKET_NAME=bucket-covid-19 
+
+#Chris Bucket
+#BUCKET_NAME=wagon-data-606-hitz
 
 #Alis Bucket
 #BUCKET_NAME=bucket-covid-19-ali
@@ -81,7 +91,12 @@ BUCKET_NAME=bucket-covid-19
 #BUCKET_NAME=bucket-covid-19-predictions
 
 # choose your region from https://cloud.google.com/storage/docs/locations#available_locations
+
+#Eitans, Alis, and Ninas region 
 REGION=europe-west1
+
+#Chris region
+#REGION=europe-west6
 
 set_project:
 	@gcloud config set project ${PROJECT_ID}
@@ -97,10 +112,14 @@ run_api:
 
 # path to the file to upload to GCP (the path to the file should be absolute or should match the directory where the make command is ran)
 # replace with your local path to the `dataset.csv,jpeg` and make sure to put the path between quotes
-LOCAL_PATH="/XXX"
+#LOCAL_PATH="<path to file or folder>"
 
 # bucket directory in which to store the uploaded file (`data` is an arbitrary name that we choose to use)
+#BUCKET_FOLDER=data
 BUCKET_FOLDER=upload
+
+# will store the packages uploaded to GCP for the training
+BUCKET_TRAINING_FOLDER = 'trainings'
 
 # name for the uploaded file inside of the bucket (we choose not to rename the file that we upload)
 BUCKET_FILE_NAME=$(shell basename ${LOCAL_PATH})
@@ -114,3 +133,27 @@ upload_data:
 ##==========================================================
 streamlit:
 	@streamlit run Covid_19/web_page.py
+
+
+##### Package params  - - - - - - - - - - - - - - - - - - -
+
+PACKAGE_NAME=Covid_19
+FILENAME=trainer
+
+
+##### Job - - - - - - - - - - - - - - - - - - - - - - - - -
+
+JOB_NAME=covid_19_training_pipeline_$(shell date +'%Y%m%d_%H%M%S')
+
+run_locally:
+	@python -m ${PACKAGE_NAME}.${FILENAME}
+
+cp_submit_training:
+	gcloud ai-platform jobs submit training ${JOB_NAME} \
+		--job-dir gs://${BUCKET_NAME}/${BUCKET_TRAINING_FOLDER} \
+		--package-path ${PACKAGE_NAME} \
+		--module-name ${PACKAGE_NAME}.${FILENAME} \
+		--python-version=${PYTHON_VERSION} \
+		--runtime-version=${RUNTIME_VERSION} \
+		--region ${REGION} \
+		--stream-logs	
