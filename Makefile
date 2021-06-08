@@ -2,7 +2,7 @@
 #          INSTALL & TEST
 # ----------------------------------
 install_requirements:
-	@pip install -r requirements.txt
+	@pip install -r requirements_model_training.txt
 
 check_code:
 	@flake8 scripts/* Covid_19/*.py
@@ -64,12 +64,9 @@ pypi:
 #Eitans project
 PROJECT_ID="batch-606-covid-19" 
 
-<<<<<<< HEAD
 #Chris project
 #PROJECT_ID="wagon-bootcamp-312423"
 
-=======
->>>>>>> master
 #Alis project
 #PROJECT_ID="batch-606-covid-19-315710"
 
@@ -79,7 +76,7 @@ PROJECT_ID="batch-606-covid-19"
 # bucket name - replace with your GCP bucket name
 
 #Eitan Bucket
-BUCKET_NAME=bucket-covid-19 
+BUCKET_NAME=bucket-covid-19
 
 #Chris Bucket
 #BUCKET_NAME=wagon-data-606-hitz
@@ -88,7 +85,7 @@ BUCKET_NAME=bucket-covid-19
 #BUCKET_NAME=bucket-covid-19-ali
 
 #Ninas Bucket
-#BUCKET_NAME=bucket-covid-19-predictions
+## BUCKET_NAME=bucket-covid-19-predictions
 
 # choose your region from https://cloud.google.com/storage/docs/locations#available_locations
 
@@ -119,7 +116,7 @@ run_api:
 BUCKET_FOLDER=upload
 
 # will store the packages uploaded to GCP for the training
-BUCKET_TRAINING_FOLDER = 'trainings'
+BUCKET_TRAINING_FOLDER = trainings
 
 # name for the uploaded file inside of the bucket (we choose not to rename the file that we upload)
 BUCKET_FILE_NAME=$(shell basename ${LOCAL_PATH})
@@ -139,6 +136,10 @@ streamlit:
 
 PACKAGE_NAME=Covid_19
 FILENAME=trainer
+RUNTIME_VERSION=2.4
+PYTHON_VERSION = 3.7
+
+#FRAMEWORK=scikit-learn
 
 
 ##### Job - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -156,4 +157,14 @@ cp_submit_training:
 		--python-version=${PYTHON_VERSION} \
 		--runtime-version=${RUNTIME_VERSION} \
 		--region ${REGION} \
-		--stream-logs	
+		--stream-logs \
+		--scale-tier STANDARD_1
+
+
+
+# --scale-tier custom \
+# --master-machine-type n1-highcpu-16 \
+# --worker-machine-type n1-highcpu-16 \
+# --parameter-server-machine-type n1-highmem-8 \
+# --worker-count 2 \
+# --parameter-server-count 3
