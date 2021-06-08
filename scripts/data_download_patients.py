@@ -19,9 +19,10 @@ def download_and_unzip(url, extract_to='.'):
 # http://ictcf.biocuckoo.cn/patient/CT/Patient%201521.zip
 
 
-for i in range(1, 1521):
+for i in range(1124, 1521):
   try:
-    download_and_unzip(f'http://ictcf.biocuckoo.cn/patient/CT/Patient%20{i}.zip', extract_to='/Users/cyrilaubrymba/code/LW COVID 19 Project/Database C19/database_download_test/ALL')
+    download_and_unzip(
+        f'http://ictcf.biocuckoo.cn/patient/CT/Patient%20{i}.zip', extract_to='/Volumes/Data EXT SSD/ALL')
   except Exception:
     pass
 
