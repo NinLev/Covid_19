@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from google.cloud import storage
 import io, os
@@ -9,6 +10,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 import joblib
+import pandas as pd
 
 
 # ...
@@ -84,10 +86,32 @@ def predict(file_names):
     return {'result':decode_diagnosis} #returns a dictionary with file names as keys and one hot coded list as class
 
 
+class Patient(BaseModel):
+    NEP: float
+    Age: float
+    LDH: float
+    NE: float
+    LYP: float
+    LY: float
+    ALB: float
+    EOP: float
+    EO: float
+    ALG: float
+    CA: float
+    MOP: float
+    INR: float
+    BUN: float
+    TBIL: float
+    WBC: float
+    DD: float
+
+
 @app.post("/predictcf/")
-def predictcf(input:str):
-    staging_pipeline = joblib.load('../notebooks/staging_pipeline.pkl')
-    transformed = staging_pipeline.transform("input.json")
-    trained_model = joblib.load('../notebooks/cf_model.pkl')
-    prediction = trained_model.predict(transformed)
-    return {'result':prediction}
+def predictcf(patient: Patient):
+    # staging_pipeline = joblib.load('../notebooks/staging_pipeline.pkl')
+    patient_dict = patient.dict()
+    # transformed = staging_pipeline.transform(df_to_predict)
+    trained_model = joblib.load('notebooks/cf_model.pkl')
+    
+    prediction = trained_model.predict(pd.DataFrame(patient_dict,index=[0]))
+    return {'result':prediction.tolist()[0]} 
