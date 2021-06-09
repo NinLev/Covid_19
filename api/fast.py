@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import tensorflow as tf
 import numpy as np
 import cv2
+import joblib
 
 
 # ...
@@ -83,3 +84,9 @@ def predict(file_names):
     return {'result':decode_diagnosis} #returns a dictionary with file names as keys and one hot coded list as class
 
 
+@app.post("/predictcf/")
+def predictcf(input:str):
+    X = parser(input)
+    trained_model = joblib.load('my_model.pkl')
+    prediction = trained_model.predict(X)
+    return {'result':prediction}
