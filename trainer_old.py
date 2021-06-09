@@ -10,19 +10,6 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras import optimizers
 from tensorflow.keras.callbacks import EarlyStopping
 
-from os.path import join, dirname
-import dotenv
-from dotenv import load_dotenv
-
-import os
-import glob
-
-
-# ...
-#env_path = join(dirname(dirname(__file__)),'.env') # ../.env
-#load_dotenv(dotenv_path=env_path)
-#C19_API_KEY =  'batch-606-covid-19-5d766c13ace0.json' #os.getenv('C19_API_KEY')
-
 
 ### GCP configuration - - - - - - - - - - - - - - - - - - -
 # /!\ you should fill these according to your account
@@ -47,68 +34,36 @@ MODEL_NAME = 'cnn_baseline'
 # model version folder name (where the trained model.joblib file will be stored)
 MODEL_VERSION = 'v1'
 
-def save_file_to_gcp(filename,file):
-    BUCKET_NAME = "bucket-covid-19"
-    #BUCKET_NAME='bucket-covid-19-predictions'
-    #storage_location = "models/random_forest_model.joblib"
-    #local_model_filename = "model.joblib"
-    client = storage.Client('batch-606-covid-19')
-    #client = storage.Client('Covid19')
-
-    bucket = client.bucket(BUCKET_NAME)
-    blob = bucket.blob(filename)
-    blob.upload_from_filename(file)
-
-
 ### GCP AI Platform - - - - - - - - - - - - - - - - - - - -
 # not required here
 
 def get_data(label):
     """method to get the training data (or a portion of it) from google cloud bucket"""
     #bucket = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json').get_bucket(BUCKET_NAME)
-    #bucket = storage.Client.from_service_account_json(C19_API_KEY).get_bucket(BUCKET_NAME)
-    print('###### get_data')
+    bucket = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json').get_bucket(BUCKET_NAME)
     
     def list_blobs_with_prefix(BUCKET_NAME, prefix, delimiter=None):
-        print('###### list blobs prefix')
+
         #storage_client = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json')
-        print()
+        storage_client = storage.Client.from_service_account_json('wagon-bootcamp-312423-bde5b1b38bca.json')
 
-        client = storage.Client()
-
-        #storage_client = storage.Client.from_service_account_json(C19_API_KEY)
-        
-        bucket = client.bucket(BUCKET_NAME)        
-        blobs = client.list_blobs(BUCKET_NAME, prefix=prefix, delimiter=None)
+        blobs = storage_client.list_blobs(BUCKET_NAME, prefix=prefix, delimiter=None)
 
         print("Blobs:")
 
         images = []
-        
-        # for blob in blobs[:10]:
-        #     #print(blob.name)
-        #     if blob.name.endswith(".jpg"):
-        #         image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
-        #         #print(image.shape)         
-        #         images.append(image)  
-                
-        ct = 0
-    
         for blob in blobs:
-            while ct < 50:
-                #print(blob.name)
-                if blob.name.endswith(".jpg"):
-                    image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
-                    #print(image.shape)         
-                    images.append(image)  
-                ct +=1
-        
+            print(blob.name)
+            if blob.name.endswith(".jpg"):
+                image = cv2.imdecode(np.asarray(bytearray(blob.download_as_string())), 0)
+                print(image.shape)         
+                images.append(image)  
+
         return images
 
     imgs = list_blobs_with_prefix(BUCKET_NAME, f'data/labeled_CT_data/{label}', '/')
- 
-    #save_file_to_gcp('test', imgs)
-    print('Getting data completed')      
+
+          
     return imgs
     
 def compute_labels(value, shape, dtype):
@@ -118,9 +73,8 @@ def compute_labels(value, shape, dtype):
 def preprocess(imgs, labels):
     """method that pre-process the data"""
     print('Preprocessing data')
-    print(len(imgs))
     # Resize images
-    #imgs=cv2.resize(imgs,(512,512))
+    imgs=cv2.resize(imgs,(512,512))
     # Normalize images
     imgs = imgs / 255.
     # One-hot-encode classes
@@ -169,33 +123,17 @@ def train_model(X_train, y_train):
     return history
 
 
-STORAGE_LOCATION = 'models/cnn_baseline/v1'
+STORAGE_LOCATION = 'models/cnn_baseline/v1/model.joblib'
 
 def upload_model_to_gcp():
     print('Uploading model to GCP')
-    #client = storage.Client()
-    #client = storage.Client.from_service_account_json(C19_API_KEY) #.get_bucket(BUCKET_NAME)
-
-    # client = storage.Client()
-    # bucket = client.get_bucket(BUCKET_NAME)
-    # blob = bucket.blob(STORAGE_LOCATION)
-
-    # #blob.upload_from_filename('model.joblib')
-    # blob.upload_from_filename('model')
-    
-    upload_from_directory('model', BUCKET_NAME, 'model_test')
-    
-def upload_from_directory(directory_path: str, dest_bucket_name: str, dest_blob_name: str):
     client = storage.Client()
-    rel_paths = glob.glob(directory_path + '/**', recursive=True)
-    bucket = client.get_bucket(dest_bucket_name)
-    for local_file in rel_paths:
-        remote_path = f'{dest_blob_name}/{"/".join(local_file.split(os.sep)[1:])}'
-        if os.path.isfile(local_file):
-            blob = bucket.blob(remote_path)
-            blob.upload_from_filename(local_file)
 
+    bucket = client.bucket(BUCKET_NAME)
 
+    blob = bucket.blob(STORAGE_LOCATION)
+
+    blob.upload_from_filename('model.joblib')
 
 def save_model(reg):
     """method that saves the model into a .joblib file and uploads it on Google Storage /models folder
@@ -203,10 +141,8 @@ def save_model(reg):
     
     # saving the trained model to disk is mandatory to then beeing able to upload it to storage
     # Implement here
-    
-    model.save('model')  # creates a HDF5 file 'my_model.h5'
-    #joblib.dump(reg, 'model.joblib')
-    #print("saved model.joblib locally")
+    joblib.dump(reg, 'model.joblib')
+    print("saved model.joblib locally")
 
     # Implement here
     upload_model_to_gcp()
@@ -215,21 +151,12 @@ def save_model(reg):
 
 if __name__ == '__main__':
     # get training data from GCP bucket
-    
-    print('We are in the main function')
-
-    #client = storage.Client.from_service_account_json(C19_API_KEY) #.get_bucket(BUCKET_NAME)
-    #open('test.txt', 'w+').close()
-    #save_file_to_gcp('test.txt','test.txt')
-    
-    
     X_nCT = get_data('nCT')
     X_nCT = np.expand_dims(X_nCT, axis=-1)
     X_pCT = get_data('pCT')
     X_pCT = np.expand_dims(X_pCT, axis=-1)
     X_NiCT = get_data('NiCT')
     X_NiCT = np.expand_dims(X_NiCT, axis=-1)
-    
 
     # Compute labels
     labels_nCT = compute_labels(0, (np.shape(X_nCT)[0], 1), int)
@@ -240,8 +167,6 @@ if __name__ == '__main__':
     X_nCT_train, X_nCT_test, y_nCT_train, y_nCT_test = preprocess(X_nCT, labels_nCT)
     X_pCT_train, X_pCT_test, y_pCT_train, y_pCT_test = preprocess(X_pCT, labels_pCT)
     X_NiCT_train, X_NiCT_test, y_NiCT_train, y_NiCT_test = preprocess(X_NiCT, labels_NiCT)
-    
-    print(X_nCT_train.shape, X_nCT_test.shape, X_pCT_train.shape,X_pCT_test.shape, X_NiCT_train.shape, X_NiCT_test.shape)
 
     # Stack pCT, nCT, and NiCT them
     X_train = np.concatenate((X_nCT_train, X_pCT_train, X_NiCT_train), axis=0)
@@ -250,21 +175,17 @@ if __name__ == '__main__':
     print(f'Dimensions of y_train: {np.shape(y_train)}')
 
     # Initialize model
-    print('initializing model')
     model = initialize_model()
 
     # Compile model
-    print('compiling model')
     model = compile_model(model)
 
     # train model (locally if this file was called through the run_locally command
     # or on GCP if it was called through the gcp_submit_training, in which case
     # this package is uploaded to GCP before being executed)
-    print('train model')
     reg = train_model(X_train, y_train)
 
     # Evaluate model
 
     # save trained model to GCP bucket (whether the training occured locally or on GCP)
-    print('saving model')
     save_model(reg)
