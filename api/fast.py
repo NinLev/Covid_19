@@ -86,7 +86,8 @@ def predict(file_names):
 
 @app.post("/predictcf/")
 def predictcf(input:str):
-    X = parser(input)
-    trained_model = joblib.load('my_model.pkl')
-    prediction = trained_model.predict(X)
+    staging_pipeline = joblib.load('../notebooks/staging_pipeline.pkl')
+    transformed = staging_pipeline.transform("input.json")
+    trained_model = joblib.load('../notebooks/cf_model.pkl')
+    prediction = trained_model.predict(transformed)
     return {'result':prediction}
