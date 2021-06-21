@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "wagon-bootcamp-312423",
+  "private_key_id": "bde5b1b38bcacadd1e7e3c53bb9442c12ef54cd6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2bZsduhEDq0kZ\nEZnx74zCKSBlP+zOJQlcqp4+wnfLyo558kPUXiDDBK1wvb7Q3lzqcPgZfqO17myq\n+7heV6+3BZ9quAnOuUlADuXxrzVXyciK0X9x7wAqgi++LFd9Px8PwPYZFiZQ1SAn\nd7wsm7iIse0+hzd0Nb6NcOFmJQjh5nmTBbpkh36lolQx9M/WX6gbjeChB9RAkSFI\nPek3vhth1k7fS74QSx5uEwZTWPtYt/C3gmVJpyYAevHyyiMQrdU/QBQGTmx+6/pp\n1WMonGgMih73rU3NydYH9WgJ7ORdJIW+o7pmNOlQxKWg6epW1QpYleL4p2Qok+qO\nPnYHKfiVAgMBAAECggEALZShvPH0VdkafMXB0+oRXqLlef7YpWIqHmnv+4jd40Cj\nTDNcwMdbArccuc5jCq+AgkBDMSWL9IVTx/34gTQCDqX8QK8mniz78SI30GUBXEOp\n1IuHPxmjDjv0f1z3aC8ZDPfe1YJMBQbXT50yWmf3GcpxF140HBhgmdkCLGIk/8II\nOjLcqdUKb6R0zwJX7MIA274PQHcRCeFTmtfrk8eChROv0Xm5BX2eDCvucl3u8ooC\nTRyCRSEdN0CVF8yIQRoPlKaP2DTdZPsELTd1oh+Z4qT2bNCkiAXtm9Cm7ILZwSjW\nFb13/skpzrQ4zTNDNBOdiovaxwSVR5ueitpCao3okQKBgQD0xYx2bcqbsy5guZD7\nScWvMnT1NKzIthLPDA4i785WMRY4TgP2dTNuaXq3fk+NKu4XK8TojkLcmsHWHwQ6\nrirBFCI/t3JU/UZb8FpKZ83Bb+zhnlMweTm/XlyvFLlTnXCIpZywRUXRgnIqp2mG\n99byjQW8n0AKPgCwJO8KvGj+pQKBgQC+y+6vfIBnIdM6b8j6bqvvCrAaTAgZibrA\nB2AKkwJFqvjtM6cVZHs9QNoZ3jA7h5QAZt/rLs1uNpQaGP9pe6Jy+PkDAYkUGsYb\niqAHsQJuD3VyUeXEIQHMkepByVMgP2cVAS1gum6k3j2p8Zn9dOf8IOrnK8hQvXwd\neD1em6pfMQKBgFgsMYUX17xut24waoGa+ZM64dbSussyi2P6O71qFTIHTLHLqLHH\nVleXt5UR8yYvKMVABxae6Ib/WIQBeEyLIOucjRnWw2DKO+YyltPmwL/FydccaWs0\nwBCntUt8c6YjOL6Aqgj1a0klbGrhE6qC7PNCyaZA15jY7PaG13VOmaPhAoGASZCt\n/kG97IXxQMXbMxw69NclIW6RbO9a7zGoyUr3hE8w3Zyd3rS4g9yee3zdEgbrfOAt\nlCuej9FBd3KOAGjoMPZoZM1Rwku0eOgRXgXVDwSs3yBOvDmRzQOx1B3BDF0F7OZg\nTbx0buM12XHLUxuhWuiCShHqkZ8N3PsAhpr0rPECgYEAgpTfJgdPp2SgZWe8u7RS\nxJSDVdx/9JOB/04YkKxBLHEziM+9AJpjbZ8SR4PXf5pE44Cd3Q5tzVCcz8PdvPAU\nR7uOtrLoh1CMSpx/fSeHAraSlNU952uAzCYPTTYF66DyQMjsF9XtVKzC1S8Iq4nB\nApMDh+alaJr9vRWv+TBaWYg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "christopherhitz-118@wagon-bootcamp-312423.iam.gserviceaccount.com",
+  "client_id": "106611910982469999841",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/christopherhitz-118%40wagon-bootcamp-312423.iam.gserviceaccount.com"
+}
